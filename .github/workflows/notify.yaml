@@ -35,7 +35,8 @@ jobs:
       - name: Checkout notifme
         uses: actions/checkout@v3
           with:
-            path: muuvlabs-upptime/muuvlabs-notifme
+            repository: muuvlabs-upptime/muuvlabs-notifme
+            path: main
 
       - name: Checkout upptime
         uses: actions/checkout@v3
