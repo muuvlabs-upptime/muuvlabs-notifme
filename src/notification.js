@@ -8,6 +8,7 @@ const {
     SMTP_PASS,
     SMTP_FROM,
     SMTP_TO,
+    STATUS_FILE_PATH,
 } = process.env;
 
 const notifmeSdk = new NotifmeSdk.default({
@@ -37,3 +38,7 @@ notifmeSdk.send({
     html: `<b>Service down since</b>`
   }
 }).then(console.log);
+
+console.log(STATUS_FILE_PATH);
+
+console.log(JSON.stringify(require(STATUS_FILE_PATH)));
