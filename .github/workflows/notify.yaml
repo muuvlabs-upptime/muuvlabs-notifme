@@ -1,0 +1,49 @@
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      STATUS_FILE_PATH:
+        required: true
+        type: string
+    secrets:
+      SMTP_HOST:
+        required: true
+      SMTP_PORT:
+        required: true
+      SMTP_SECURE:
+        required: true
+      SMTP_USER:
+        required: true
+      SMTP_PASS:
+        required: true
+      SMTP_FROM:
+        required: true
+      SMTP_TO:
+        required: true
+
+jobs:
+  check_sites_status_and_notify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: 14.x
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Start
+        run: |
+          npm ci
+          npm run start
+        with:
+          STATUS_FILE_PATH: ${{ inputs.STATUS_FILE_PATH }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_TO: ${{ secrets.SMTP_TO }}
