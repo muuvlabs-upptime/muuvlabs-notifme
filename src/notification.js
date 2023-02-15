@@ -1,4 +1,4 @@
-const NotifmeSdk = require('notifme-sdk');
+const NotifmeSdk = require( "notifme-sdk" );
 
 const {
     SMTP_HOST,
@@ -14,10 +14,10 @@ const notifmeSdk = new NotifmeSdk.default({
   channels: {
     email: {
       providers: [{
-        type: 'smtp',
+        type: "smtp",
         host: SMTP_HOST,
         port: SMTP_PORT,
-        secure: SMTP_SECURE,
+        secure: SMTP_SECURE === "true",
         auth: {
           user: SMTP_USER,
           pass: SMTP_PASS
