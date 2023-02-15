@@ -38,7 +38,7 @@ jobs:
         run: |
           npm ci
           npm run start
-        with:
+        env:
           STATUS_FILE_PATH: ${{ inputs.STATUS_FILE_PATH }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
