@@ -1,5 +1,9 @@
 on:
   workflow_dispatch:
+    inputs:
+      STATUS_FILE_PATH:
+        required: true
+        type: string
   workflow_call:
     inputs:
       STATUS_FILE_PATH:
@@ -23,6 +27,7 @@ on:
         required: true
       SMTP_TO:
         required: true
+
 
 jobs:
   check_sites_status_and_notify:
