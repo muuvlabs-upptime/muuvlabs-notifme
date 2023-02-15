@@ -34,15 +34,15 @@ jobs:
     steps:
       - name: Checkout notifme
         uses: actions/checkout@v3
-          with:
-            repository: muuvlabs-upptime/muuvlabs-notifme
-            path: main
+        with:
+          repository: muuvlabs-upptime/muuvlabs-notifme
+          path: main
 
       - name: Checkout upptime
         uses: actions/checkout@v3
-          with:
-            repository: ${{ inputs.CALLING_REPO }}
-              path: calling-repo
+        with:
+          repository: ${{ inputs.CALLING_REPO }}
+          path: calling-repo
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
