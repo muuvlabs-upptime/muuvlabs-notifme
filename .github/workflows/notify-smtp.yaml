@@ -5,8 +5,12 @@ on:
     inputs:
       STATUS_FILE_PATH:
         type: string
+        required: true
+        default: "history/summary.json"
       CALLING_REPO:
         type: string
+        required: true
+        default: "muuvlabs-upptime/muuvlabs-upptime"
   schedule:
     - cron: "0 */5 * * *"
 
