@@ -54,6 +54,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Check dir
+        working-directory: ./main
+        run: |
+          ls ..
+
       - name: Start
         working-directory: ./main
         run: |
