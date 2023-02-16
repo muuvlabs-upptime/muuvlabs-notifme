@@ -8,7 +8,7 @@ on:
       CALLING_REPO:
         type: string
   schedule:
-    - cron: "0 */5 * ? * *	"
+    - cron: "0 */5 * ? * *"
 
 jobs:
   check_sites_status_and_notify:
