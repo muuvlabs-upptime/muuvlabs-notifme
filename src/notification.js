@@ -37,7 +37,7 @@ for (const status of serviceStatuses) {
                 from: SMTP_FROM,
                 to: SMTP_TO,
                 subject: `[!] Upptime notification: ${status.name} service down`,
-                html: `<b>Service down for ${status.dailyMinutesDown}</b></br>URL: ${status.url}`
+                html: `<b>Service down: ${status.url}</b></br>Downtime: </br>${JSON.stringify(status.dailyMinutesDown, null, 2)}`
             }
         }).then(console.log);
     }
