@@ -1,14 +1,12 @@
+name: Notify SMTP
+
 on:
   workflow_dispatch:
     inputs:
       STATUS_FILE_PATH:
-        required: true
         type: string
-        default: "history/summary.json"
       CALLING_REPO:
-        required: true
         type: string
-        default: "muuvlabs-upptime/muuvlabs-upptime"
   workflow_call:
     inputs:
       STATUS_FILE_PATH:
@@ -35,6 +33,10 @@ on:
   schedule:
     - cron: "*/5 * * * *"
 
+env:
+  CALLING_REPO: ${{ inputs.CALLING_REPO || "muuvlabs-upptime/muuvlabs-upptime" }}
+  STATUS_FILE_PATH: ${{ inputs.STATUS_FILE_PATH || "history/summary.json" }}
+
 jobs:
   check_sites_status_and_notify:
     runs-on: ubuntu-latest
@@ -52,7 +54,7 @@ jobs:
       - name: Checkout upptime
         uses: actions/checkout@v3
         with:
-          repository: ${{ inputs.CALLING_REPO }}
+          repository: ${{ env.CALLING_REPO }}
           path: calling-repo
 
       - name: Use Node.js ${{ matrix.node-version }}
@@ -67,7 +69,7 @@ jobs:
           npm ci
           npm run start
         env:
-          STATUS_FILE_PATH: ../../calling-repo/${{ inputs.STATUS_FILE_PATH }}
+          STATUS_FILE_PATH: ../../calling-repo/${{ env.STATUS_FILE_PATH }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
