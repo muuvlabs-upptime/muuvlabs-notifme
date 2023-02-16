@@ -7,35 +7,8 @@ on:
         type: string
       CALLING_REPO:
         type: string
-  workflow_call:
-    inputs:
-      STATUS_FILE_PATH:
-        required: true
-        type: string
-      CALLING_REPO:
-        required: true
-        type: string
-    secrets:
-      SMTP_HOST:
-        required: true
-      SMTP_PORT:
-        required: true
-      SMTP_SECURE:
-        required: true
-      SMTP_USER:
-        required: true
-      SMTP_PASS:
-        required: true
-      SMTP_FROM:
-        required: true
-      SMTP_TO:
-        required: true
   schedule:
     - cron: "*/5 * * * *"
-
-env:
-  CALLING_REPO: "${{inputs.CALLING_REPO !== undefined && inputs.CALLING_REPO || 'muuvlabs-upptime/muuvlabs-upptime'}}"
-  STATUS_FILE_PATH: "${{inputs.STATUS_FILE_PATH !== undefined && inputs.STATUS_FILE_PATH || 'history/summary.json'}}"
 
 jobs:
   check_sites_status_and_notify:
@@ -54,8 +27,8 @@ jobs:
       - name: Checkout upptime
         uses: actions/checkout@v3
         with:
-          repository: ${{ env.CALLING_REPO }}
-          path: calling-repo
+          repository: "muuvlabs-upptime/muuvlabs-upptime"
+          path: upptime-repo
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -65,11 +38,10 @@ jobs:
       - name: Start
         working-directory: ./main
         run: |
-          ls ../calling-repo
           npm ci
           npm run start
         env:
-          STATUS_FILE_PATH: ../../calling-repo/${{ env.STATUS_FILE_PATH }}
+          STATUS_FILE_PATH: ../../upptime-repo/history/summary.json
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
