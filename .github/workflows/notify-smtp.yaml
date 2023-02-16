@@ -34,8 +34,8 @@ on:
     - cron: "*/5 * * * *"
 
 env:
-  CALLING_REPO: ${{ inputs.CALLING_REPO || "muuvlabs-upptime/muuvlabs-upptime" }}
-  STATUS_FILE_PATH: ${{ inputs.STATUS_FILE_PATH || "history/summary.json" }}
+  CALLING_REPO: "${{inputs.CALLING_REPO !== undefined && inputs.CALLING_REPO || 'muuvlabs-upptime/muuvlabs-upptime'}}"
+  STATUS_FILE_PATH: "${{inputs.STATUS_FILE_PATH !== undefined && inputs.STATUS_FILE_PATH || "history/summary.json"}}"
 
 jobs:
   check_sites_status_and_notify:
