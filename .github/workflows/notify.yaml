@@ -4,6 +4,11 @@ on:
       STATUS_FILE_PATH:
         required: true
         type: string
+        default: "history/summary.json"
+      CALLING_REPO:
+        required: true
+        type: string
+        default: "muuvlabs-upptime/muuvlabs-upptime"
   workflow_call:
     inputs:
       STATUS_FILE_PATH:
