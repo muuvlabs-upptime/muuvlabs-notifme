@@ -28,17 +28,17 @@ const notifmeSdk = new NotifmeSdk.default({
   }
 });
 
-const SERVICE_NAME = 'Test Service';
+const serviceStatuses = require(STATUS_FILE_PATH);
 
-notifmeSdk.send({
-  email: {
-    from: SMTP_FROM,
-    to: SMTP_TO,
-    subject: `[!] Upptime notification: ${SERVICE_NAME} service down`,
-    html: `<b>Service down since</b>`
-  }
-}).then(console.log);
-
-console.log(STATUS_FILE_PATH);
-
-console.log(JSON.stringify(require(STATUS_FILE_PATH)));
+for (const status of serviceStatuses) {
+    if (status.status !== "up") {
+        notifmeSdk.send({
+            email: {
+                from: SMTP_FROM,
+                to: SMTP_TO,
+                subject: `[!] Upptime notification: ${status.name} service down`,
+                html: `<b>Service down for ${status.dailyMinutesDown}</b></br>URL: ${status.url}`
+            }
+        }).then(console.log);
+    }
+}
