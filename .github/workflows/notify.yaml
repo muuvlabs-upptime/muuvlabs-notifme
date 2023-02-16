@@ -32,7 +32,8 @@ on:
         required: true
       SMTP_TO:
         required: true
-
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   check_sites_status_and_notify:
