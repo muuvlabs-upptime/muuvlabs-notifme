@@ -11,6 +11,8 @@ const {
     STATUS_FILE_PATH,
 } = process.env;
 
+console.log( `Sending emails as ${SMTP_USER}` );
+
 const notifmeSdk = new NotifmeSdk.default({
   channels: {
     email: {
